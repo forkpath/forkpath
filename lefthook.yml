@@ -18,9 +18,8 @@ commit-msg:
       runner: node
       command: npx commitlint --edit $1
 
-# 不需要在CI或本地检查devDependencies
 pre-push:
   parallel: true
   commands:
     packages-audit:
-      run: npm audit --omit=dev
+      run: pnpm audit
