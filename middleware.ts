@@ -1,8 +1,12 @@
+import { routing } from '@/i18n/routing'
 import { signToken, verifyToken } from '@/lib/auth/session'
+import createMiddleware from 'next-intl/middleware'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const protectedRoutes = '/dashboard'
+
+export default createMiddleware(routing)
 
 export async function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
@@ -44,5 +48,13 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+	matcher: [
+		// Enable a redirect to a matching locale at the root
+		'/',
+		// Set a cookie to remember the previous locale for
+		// all requests that have a locale prefix
+		'/(en/zh)/:path*',
+		// Enable redirects that add missing locales
+		'/((?!api|_next/static|_next/image|favicon.ico).*)'
+	]
 }
