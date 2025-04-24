@@ -1,4 +1,4 @@
-export type AuthorsConfig = {
+export type AuthorConfig = {
 	name: string
 	url: string
 }
@@ -13,7 +13,7 @@ export type SiteConfig = {
 	tagLine: string
 	description: string
 	url: string
-	authors: AuthorsConfig[]
+	authors: AuthorConfig[]
 	socialLinks: {
 		github: string
 		twitter: string

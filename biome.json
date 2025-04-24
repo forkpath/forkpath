@@ -41,7 +41,7 @@
 			},
 			"style": {
 				"noUnusedTemplateLiteral": {
-					"level": "error",
+					"level": "off",
 					"fix": "safe"
 				},
 				"noNonNullAssertion": "off",

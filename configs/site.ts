@@ -1,13 +1,11 @@
 import type { SiteConfig } from '@/types/config'
 
-export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://nextforge.dev'
+export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://forkpath.com'
 
-export const SOURCE_CODE_URL = 'https://github.com/weijunext/nextjs-15-starter'
-
-const TWITTER_URL = 'https://x.com/weijunext'
+const TWITTER_URL = 'https://x.com/_forkpath_'
 const WECHAT_URL = 'https://bsky.app/profile/judewei.bsky.social'
-const EMAIL_URL = 'mailto:weijunext@gmail.com'
-const GITHUB_URL = 'https://github.com/weijunext'
+const EMAIL_URL = 'mailto:forkpath@gmail.com'
+const GITHUB_URL = 'https://github.com/forkpath'
 
 export const siteConfig: SiteConfig = {
 	name: 'Next Forge',
