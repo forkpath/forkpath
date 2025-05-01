@@ -1,7 +1,7 @@
 import { Callout } from '@/components/mdx/Callout'
 import MDXComponents from '@/components/mdx/MDXComponents'
 import { LOCALES, type Locale } from '@/i18n/routing'
-import { generateBlogMetadata, getBlogs } from '@/lib/utils'
+import { generateBlogMetadata, getBlogs } from '@/lib/generators'
 
 import type { BlogPost } from '@/types/blog'
 import type { Metadata } from 'next'
@@ -28,17 +28,17 @@ export async function generateMetadata({ params }: MetadataProps): Promise<Metad
 			description: 'Page not found',
 			noIndex: true,
 			locale: locale as Locale,
-			path: `/blogs/${slug}`
+			path: `/blog/${slug}`
 		})
 	}
 
 	return generateBlogMetadata({
-		page: 'blogs',
+		page: 'blog',
 		title: blog.title,
 		description: blog.description,
 		images: blog.image ? [blog.image] : [],
 		locale: locale as Locale,
-		path: `/blogs/${slug}`
+		path: `/blog/${slug}`
 		// canonicalUrl: `/blogs/${slug}`,
 	})
 }
