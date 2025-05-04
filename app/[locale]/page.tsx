@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Params }) {
 				{blogs.map((blog) => (
 					<I18nLink key={blog.slug} href={`/blog/${blog.slug}`} prefetch={false} className='hover:underline'>
 						<div className='py-3 flex-1 flex flex-col'>
-							<h2 className='text-lg font-500 line-clamp-2 flex-grow'>{blog.title}</h2>
+							<h2 className='text-lg line-clamp-2 flex-grow font-medium'>{blog.title}</h2>
 							<p className='text-gray-600 dark:text-gray-400 text-sm mt-2'>{dayjs(blog.date).format('YYYY-MM-DD')}</p>
 						</div>
 					</I18nLink>
