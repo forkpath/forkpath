@@ -3,9 +3,14 @@ import { join } from 'node:path'
 import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, LOCALE_NAMES } from '@/i18n/routing'
 import type { BlogMetadata, BlogPost } from '@/types/blog'
+import GithubSlugger from 'github-slugger'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import remarkMdx from 'remark-mdx'
+import remarkParse from 'remark-parse'
+import { unified } from 'unified'
+import { visit } from 'unist-util-visit'
 
 const BLOGS_BATCH_SIZE = 12
 
@@ -32,6 +37,7 @@ export async function getBlogs(locale: string = DEFAULT_LOCALE): Promise<{ blogs
 				const blogContent = await fs.promises.readFile(fullPath, 'utf-8')
 
 				const { data, content } = matter(blogContent)
+				const headings = extractHeadings(content)
 
 				return {
 					locale, // 使用传入的 locale 参数
@@ -44,7 +50,8 @@ export async function getBlogs(locale: string = DEFAULT_LOCALE): Promise<{ blogs
 					visible: data.visible || 'published',
 					pin: data.pin || false,
 					content,
-					metadata: data
+					metadata: data,
+					headings
 				}
 			})
 		)
@@ -151,4 +158,25 @@ export async function generateBlogMetadata({
 			}
 		}
 	}
+}
+
+function extractHeadings(markdown: string) {
+	const headings: { text: string; id: string }[] = []
+	const slugger = new GithubSlugger()
+
+	const tree = unified().use(remarkParse).use(remarkMdx).parse(markdown)
+
+	visit(tree, 'heading', (node) => {
+		if (node.depth === 2) {
+			const text = node.children
+				.filter((child) => child.type === 'text')
+				.map((child) => child.value)
+				.join('')
+			const id = slugger.slug(text)
+
+			headings.push({ text, id: `#${id}` })
+		}
+	})
+
+	return headings
 }

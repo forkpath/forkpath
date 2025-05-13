@@ -1,11 +1,13 @@
-import { Callout } from '@/components/mdx/Callout'
+import { Container } from '@/components/container'
 import MDXComponents from '@/components/mdx/MDXComponents'
+import { Toc } from '@/components/toc'
 import { LOCALES, type Locale } from '@/i18n/routing'
 import { generateBlogMetadata, getBlogs } from '@/lib/generators'
 
 import type { BlogPost } from '@/types/blog'
 import type { Metadata } from 'next'
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 type Params = Promise<{
@@ -54,27 +56,18 @@ export default async function BlogPage({ params }: { params: Params }) {
 	}
 
 	return (
-		<div className='w-full md:w-3/5 px-2 md:px-12'>
-			<h1 className='break-words text-4xl font-bold mt-6 mb-4'>{blog.title}</h1>
-			{blog.image && <img src={blog.image} alt={blog.title} className='rounded-sm' />}
-			{blog.tags?.split(',').length ? (
-				<div className='flex flex-wrap gap-2'>
-					{blog.tags.split(',').map((tag) => {
-						return (
-							<div
-								key={tag}
-								className={`rounded-md bg-gray-200 hover:!no-underline dark:bg-[#24272E] flex px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-black hover:dark:bg-[#15AFD04C] hover:dark:text-[#82E9FF] text-gray-500 dark:text-[#7F818C] outline-none focus-visible:ring transition`}
-							>
-								{tag.trim()}
-							</div>
-						)
-					})}
-				</div>
-			) : (
-				<></>
-			)}
-			{blog.description && <Callout>{blog.description}</Callout>}
-			<MDXRemote source={blog?.content || ''} components={MDXComponents} />
+		<div className='flex flex-col gap-4 md:flex-row min-h-screen items-start justify-start'>
+			<Toc links={blog.headings} />
+			<Container className='min-h-screen px-8 md:pt-24 md:pb-10'>
+				<Image
+					src={blog.image}
+					alt={blog.title}
+					width='672'
+					height='384'
+					className='rouned-full mx-auto mb-20 max-h-96 w-full max-w-2xl rounded-2xl object-cover shadow-xl'
+				/>
+				<MDXRemote source={blog.content} components={MDXComponents} />
+			</Container>
 		</div>
 	)
 }

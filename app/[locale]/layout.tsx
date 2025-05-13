@@ -5,13 +5,16 @@ import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import PlausibleAnalytics from '@/components/tools/plausible'
 import { TailwindIndicator } from '@/components/tools/tailwind-indicator'
+import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, routing } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { ThemeProvider } from 'next-themes'
+import { ViewTransitions } from 'next-view-transitions'
 import { notFound } from 'next/navigation'
 import { StrictMode } from 'react'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
 	title: '支线的数字花园',
@@ -39,22 +42,25 @@ export default async function RootLayout({
 
 	return (
 		<StrictMode>
-			<html lang={locale || DEFAULT_LOCALE} suppressHydrationWarning>
-				<head />
-				<body className={cn('bg-background antialiased font-misans')}>
-					<NextIntlClientProvider messages={messages}>
-						<ThemeProvider>
-							<main className='max-w-7xl min-h-screen mx-auto flex flex-col items-center'>
-								<Header />
-								{children}
-								<Footer />
-							</main>
-						</ThemeProvider>
-					</NextIntlClientProvider>
-					<TailwindIndicator />
-					{process.env.NODE_ENV === 'production' && <PlausibleAnalytics />}
-				</body>
-			</html>
+			<ViewTransitions>
+				<html lang={locale || DEFAULT_LOCALE} suppressHydrationWarning>
+					<head />
+					<body className={cn('bg-background antialiased font-misans')}>
+						<NextIntlClientProvider messages={messages}>
+							<ThemeProvider attribute='class' defaultTheme={siteConfig.defaultNextTheme} enableSystem>
+								<Toaster position='bottom-right' />
+								<main className='max-w-7xl mx-auto flex flex-col items-center'>
+									<Header />
+									{children}
+									<Footer />
+								</main>
+							</ThemeProvider>
+						</NextIntlClientProvider>
+						<TailwindIndicator />
+						{process.env.NODE_ENV === 'production' && <PlausibleAnalytics />}
+					</body>
+				</html>
+			</ViewTransitions>
 		</StrictMode>
 	)
 }

@@ -2,51 +2,15 @@
 import { Moon, Sun } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
-export const ModeToggle = () => {
+export const ThemeToggle = () => {
 	const { theme, setTheme } = useTheme()
-
-	const [isMounted, setIsMounted] = useState(false)
-	const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('light')
-
-	useEffect(() => {
-		setIsMounted(true)
-
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-		setSystemTheme(mediaQuery.matches ? 'dark' : 'light')
-
-		const handleChange = (e: MediaQueryListEvent) => {
-			setSystemTheme(e.matches ? 'dark' : 'light')
-		}
-
-		mediaQuery.addEventListener('change', handleChange)
-		return () => mediaQuery.removeEventListener('change', handleChange)
-	}, [])
-
-	const SWITCH = () => {
-		switch (theme) {
-			case 'light':
-				setTheme('dark')
-				break
-			case 'dark':
-				setTheme('light')
-				break
-			case 'system':
-				setTheme(systemTheme === 'light' ? 'dark' : 'light')
-				break
-			default:
-				break
-		}
-	}
-
-	if (!isMounted) return null
 
 	return (
 		<button
 			type='button'
 			className='flex items-center rounded-md px-2 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800'
-			onClick={SWITCH}
+			onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
 		>
 			{theme === 'light' ? (
 				<motion.span

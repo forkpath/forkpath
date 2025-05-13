@@ -16,11 +16,16 @@ export type BlogMetadata = {
 	canonicalUrl?: string // 在博客系统或者CMS中，canonicalUrl 是指一个网页的标准 URL，用于告诉搜索引擎该网页的主要版本，以避免重复内容的问题
 }
 
+export type BlogToc = {
+	text: string
+	id: string
+}[]
+
 export type BlogPost = {
 	locale?: string
 	title: string
 	description?: string
-	image?: string
+	image: string
 	slug: string
 	tags?: string
 	date: Date
@@ -30,4 +35,5 @@ export type BlogPost = {
 	metadata: {
 		[key: string]: any
 	}
+	headings: BlogToc // 在博客内页中，我在左侧提供了一个toc方便阅读长文，toc通过remark解析进行提取
 }

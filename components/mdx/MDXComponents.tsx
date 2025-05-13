@@ -1,6 +1,7 @@
 import { Aside } from '@/components/mdx/Aside'
 import { Callout } from '@/components/mdx/Callout'
 import { MdxCard } from '@/components/mdx/MdxCard'
+import GithubSlugger from 'github-slugger'
 import React, { type ReactNode } from 'react'
 
 interface HeadingProps {
@@ -11,9 +12,10 @@ interface HeadingProps {
 
 const Heading: React.FC<HeadingProps> = ({ level, className, children }) => {
 	const HeadingTag = `h${level}` as keyof React.ElementType
-	const headingId = children?.toString() ?? ''
+	const slugger = new GithubSlugger()
+	const id = slugger.slug(children?.toString() ?? '')
 
-	return React.createElement(HeadingTag, { id: headingId, className }, children)
+	return React.createElement(HeadingTag, { id, className }, children)
 }
 
 interface MDXComponentsProps {
