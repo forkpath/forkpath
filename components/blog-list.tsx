@@ -1,19 +1,16 @@
 'use client'
-import { Link as I18nLink } from '@/i18n/routing'
+import { truncate } from '@/lib/utils'
 import type { BlogPost } from '@/types/blog'
 import FuzzySearch from 'fuzzy-search'
 import { motion } from 'motion/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export const BlogList = ({ blogs }: { blogs: BlogPost[] }) => {
 	const [search, setSearch] = useState('')
 	const searcher = new FuzzySearch(blogs, ['title', 'description'], { caseSensitive: false })
 	const [results, setResults] = useState(blogs)
-
-	const truncate = (str: string, length: number) => {
-		return str.length > length ? `${str.substring(0, length)}...` : str
-	}
 
 	useEffect(() => {
 		const results = searcher.search(search)
@@ -43,15 +40,15 @@ export const BlogList = ({ blogs }: { blogs: BlogPost[] }) => {
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3, delay: 0.05 * id }}
 						>
-							<I18nLink
+							<Link
 								key={blog.slug}
 								href={`/blog/${blog.slug}`}
-								prefetch={false}
 								className='flex md:flex-row flex-col items-start justify-between md:items-center group/blog-row py-4'
 							>
 								<div>
 									<h2 className='text-neutral-700 text-lg font-bold tracking-tight'>{blog.title}</h2>
 									<p className='text-neutral-500 text-sm '>{truncate(blog.description || '', 150)}</p>
+
 									<div className='flex gap-2 items-center my-4'>
 										<p className='dark:text-neutral-300 text-neutral-500 text-sm  max-w-xl'>
 											{new Date(blog.date || '').toLocaleDateString('en-us', {
@@ -70,7 +67,7 @@ export const BlogList = ({ blogs }: { blogs: BlogPost[] }) => {
 									height={100}
 									className='hidden md:block w-32 h-32 rounded-md object-cover'
 								/>
-							</I18nLink>
+							</Link>
 						</motion.div>
 					))
 				)}
