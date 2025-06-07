@@ -86,7 +86,6 @@
 		"@types/react-dom": "^19",
 		"check-site-meta": "^0.3.5",
 		"cz-customizable": "^7.4.0",
-		"drizzle-kit": "^0.31.0",
 		"lefthook": "^1.11.7",
 		"tailwindcss": "^4",
 		"tsx": "^4.19.3",

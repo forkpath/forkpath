@@ -7,7 +7,7 @@ export const BlogPin = ({ blog }: { blog: BlogPost | null }) => {
 	return (
 		blog && (
 			<Link
-				className='grid grid-cols-1 md:grid-cols-2  rounded-3xl group/blog border border-transparent shadow-xl shadow-accent-foreground dark:hover:border-neutral-800 w-full dark:hover:bg-neutral-900 hover:border-neutral-200 hover:bg-neutral-100  overflow-hidden  hover:scale-[1.02]'
+				className='grid w-full grid-cols-1 overflow-hidden rounded-3xl border border-transparent shadow-xl group/blog shadow-accent-foreground hover:scale-[1.02] hover:border-neutral-200 hover:bg-neutral-100 md:grid-cols-2 dark:hover:border-neutral-800 dark:hover:bg-neutral-900'
 				href={`/blog/${blog.slug}`}
 			>
 				<Image
@@ -15,16 +15,16 @@ export const BlogPin = ({ blog }: { blog: BlogPost | null }) => {
 					alt={blog.title}
 					height='800'
 					width='800'
-					className='h-full max-h-96 object-cover object-top w-full rounded-3xl'
+					className='h-full w-full max-h-96  rounded-3xl object-cover object-top'
 				/>
-				<div className='p-4 md:p-8 dark:group-hover/blog:bg-neutral-900 group-hover/blog:bg-neutral-100 flex flex-col justify-between'>
+				<div className='flex flex-col justify-between group-hover/blog:bg-neutral-100 p-4 dark:group-hover/blog:bg-neutral-900 md:p-8'>
 					<div>
-						<p className='text-lg md:text-4xl font-bold mb-4 text-neutral-800 dark:text-neutral-100'>{blog.title}</p>
-						<p className='text-left text-base md:text-xl mt-2 text-neutral-600 dark:text-neutral-400'>
+						<p className='mb-4 text-lg font-bold text-neutral-800 dark:text-neutral-100 md:text-4xl'>{blog.title}</p>
+						<p className='mt-2 text-left text-base text-neutral-600 dark:text-neutral-400 md:text-xl'>
 							{truncate(blog.description, 500)}
 						</p>
 					</div>
-					<p className='text-neutral-600 dark:text-neutral-300 text-sm  max-w-xl  transition duration-200'>
+					<p className='max-w-xl text-sm text-neutral-600 transition duration-200 dark:text-neutral-300'>
 						{new Date(blog.date || '').toLocaleDateString('en-us', {
 							weekday: 'long',
 							year: 'numeric',
