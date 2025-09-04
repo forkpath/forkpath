@@ -1,48 +1,52 @@
 {
-	"LanguageDetection": {
-		"title": "Language Suggestion",
-		"description": "We noticed your browser language differs from the current site language. You can switch languages anytime 👉",
-		"countdown": "Closing in {countdown} seconds"
+	"author": {
+		"name": "Forkpath",
+		"description": "Forkpath is a curated collection of principles, patterns, methods, tools, and visions for thought and craft. It serves as a guide for individuals seeking to navigate the complexities of the modern world with clarity and purpose."
 	},
-	"Header": {
-		"blogs": "Blogs",
-		"about": "About",
-		"sourceCode": "Source Code"
+	"home": {
+		"title": "Stillness within structure",
+		"subTitle": "Quiet structure for thought & craft",
+		"motto": "CALM • ORDER • BALANCE • SENSE"
 	},
-	"Footer": {
-		"Copyright": "Copyright © {year} Next Forge. All rights reserved.",
-		"Newsletter": {
-			"title": "Subscribe to our newsletter",
-			"description": "Get the latest news and updates from Next Forge",
-			"defaultErrorMessage": "Please enter a valid email address",
-			"successMessage": "Subscription successful",
-			"errorMessage": "Subscription failed",
-			"errorMessage2": "Subscription failed. Please try again later.",
-			"subscribe": "Subscribe",
-			"subscribing": "Subscribing...",
-			"subscribed": "Subscription successful! Thank you for your attention."
+	"navs": {
+		"home": {
+			"title": "Forkpath",
+			"description": "Cyber Zendo"
+		},
+		"principle": {
+			"title": "Principle",
+			"description": "Unchanging foundations and first principles"
+		},
+		"pattern": {
+			"title": "Pattern",
+			"description": "Rhythms and rules of the outer world"
+		},
+		"method": {
+			"title": "Method",
+			"description": "Ways of practice and lived techniques"
+		},
+		"tool": {
+			"title": "Tool",
+			"description": "Software, hardware and instruments"
+		},
+		"vision": {
+			"title": "Vision",
+			"description": "Photography, design and video"
 		}
 	},
-	"Home": {
-		"title": "Next Forge",
-		"tagLine": "Multilingual Next.js 15 Starter",
-		"description": "A multilingual Next.js 15 starter with built-in i18n support. Launch your global-ready web application with a clean, efficient, and SEO-friendly foundation.",
-		"whoIsUsing": "Who is Using This Starter"
+	"footer": {
+		"copy": "© 2025 Forkpath. All rights reserved."
 	},
-	"Blogs": {
-		"title": "Blog Posts",
-		"description": "A list of blog posts"
+	"action": {
+		"enter": "Enter",
+		"search": "Search",
+		"next": "Next",
+		"prev": "Previous",
+		"close": "Close"
 	},
-	"About": {
-		"title": "About",
-		"description": "About the site"
-	},
-	"TermsOfService": {
-		"title": "Terms of Service",
-		"description": "Terms of Service"
-	},
-	"PrivacyPolicy": {
-		"title": "Privacy Policy",
-		"description": "Privacy Policy"
+	"layout": {
+		"nothing": "No results found",
+		"toc": "Table of Contents",
+		"comment": "Comments"
 	}
 }

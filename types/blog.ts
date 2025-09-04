@@ -1,4 +1,5 @@
 import type { Locale } from '@/i18n/routing'
+import type { Category } from '@/types/config'
 
 /**
  * canonicalUrl 用于标识页面的规范 URL。
@@ -30,10 +31,19 @@ export type BlogPost = {
 	tags?: string
 	date: Date
 	visible?: 'draft' | 'invisible' | 'published'
+	category?: Category
 	pin?: boolean
 	content: string
 	metadata: {
 		[key: string]: any
 	}
 	headings: BlogToc // 在博客内页中，我在左侧提供了一个toc方便阅读长文，toc通过remark解析进行提取
+}
+
+export type ImageMeta = {
+	url: string
+	title: string
+	description: string
+	date: Date
+	tag: 'photo' | 'illustration' | 'aigc'
 }

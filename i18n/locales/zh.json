@@ -1,48 +1,54 @@
 {
-	"LanguageDetection": {
-		"title": "语言建议",
-		"description": "检测到您的浏览器语言和当前语言不一样，您随时都可切换语言 👉",
-		"countdown": "将在 {countdown} 秒后关闭"
+	"author": {
+		"name": "支线",
+		"description": "支线是一个为思想与造物服务的精选集，涵盖道、法、术、器、相五个方面。它旨在为那些寻求以清晰和目标感驾驭现代世界复杂性的个人提供指导。"
 	},
-	"Header": {
-		"blogs": "博客",
-		"about": "关于",
-		"sourceCode": "源码"
+	"home": {
+		"title": "静 · 中 · 有 · 序",
+		"subTitle": "为思想与造物服务的静与序",
+		"motto": "静 • 中 • 有 • 序",
+		"author": "支线",
+		"description": "支线是一个为思想与造物服务的精选集，涵盖道、法、术、器、相五个方面。它旨在为那些寻求以清晰和目标感驾驭现代世界复杂性的个人提供指导。"
 	},
-	"Footer": {
-		"Copyright": "版权所有 © {year} Next Forge。保留所有权利。",
-		"Newsletter": {
-			"title": "订阅我们的邮件",
-			"description": "获取最新的 Next.js 资讯和教程",
-			"defaultErrorMessage": "请输入有效的邮箱地址",
-			"successMessage": "订阅成功",
-			"errorMessage": "订阅失败",
-			"errorMessage2": "订阅失败，请稍后再试",
-			"subscribe": "订阅",
-			"subscribing": "订阅中",
-			"subscribed": "订阅成功！感谢您的关注。"
+	"navs": {
+		"home": {
+			"title": "支线",
+			"description": "数字禅堂"
+		},
+		"principle": {
+			"title": "道",
+			"description": "恒常的底层规律与第一性原理"
+		},
+		"pattern": {
+			"title": "法",
+			"description": "外部世界的节律节律与规则"
+		},
+		"method": {
+			"title": "术",
+			"description": "可实践的方法与技巧"
+		},
+		"tool": {
+			"title": "器",
+			"description": "软件、硬件与器物"
+		},
+		"vision": {
+			"title": "相",
+			"description": "摄影、设计与动态影像"
 		}
 	},
-	"Home": {
-		"title": "Next Forge",
-		"tagLine": "Next.js 多语言启动模板",
-		"description": "内置多语言支持的 Next.js 15 启动模板，助您快速构建面向全球的出海网站。简洁高效，开箱即用，完全优化的SEO基础架构。",
-		"whoIsUsing": "谁在使用此模板"
+	"footer": {
+		"copy": "© 2025 支线. 保留所有权利"
 	},
-	"Blogs": {
-		"title": "博客列表",
-		"description": "博客列表"
+	"action": {
+		"enter": "进入",
+		"search": "搜索",
+		"next": "下一张",
+		"prev": "上一张",
+		"close": "关闭"
 	},
-	"About": {
-		"title": "关于",
-		"description": "关于网站"
-	},
-	"TermsOfService": {
-		"title": "服务条款",
-		"description": "服务条款"
-	},
-	"PrivacyPolicy": {
-		"title": "隐私政策",
-		"description": "隐私政策"
+	"layout": {
+		"nothing": "没有找到结果",
+		"toc": "目录",
+		"comment": "评论"
 	}
 }

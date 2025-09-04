@@ -2,15 +2,12 @@ import type { Metadata } from 'next'
 import type React from 'react'
 import '@/app/globals.css'
 import { Footer } from '@/components/footer'
-import { Header } from '@/components/header'
 import PlausibleAnalytics from '@/components/tools/plausible'
 import { TailwindIndicator } from '@/components/tools/tailwind-indicator'
-import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, routing } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
-import { ThemeProvider } from 'next-themes'
+import { getMessages, getTranslations } from 'next-intl/server'
 import { ViewTransitions } from 'next-view-transitions'
 import { notFound } from 'next/navigation'
 import { StrictMode } from 'react'
@@ -31,6 +28,8 @@ export default async function RootLayout({
 	}
 }>) {
 	const { locale } = await params
+	const t = await getTranslations()
+	const brand = t('author.name')
 
 	// 确保传入的“语言环境”有效
 	if (!routing.locales.includes(locale as any)) {
@@ -45,16 +44,19 @@ export default async function RootLayout({
 			<ViewTransitions>
 				<html lang={locale || DEFAULT_LOCALE} suppressHydrationWarning>
 					<head />
-					<body className={cn('bg-background antialiased font-misans')}>
+					<body className={cn('bg-neutral-50 text-neutral-800 antialiased font-misans')}>
 						<NextIntlClientProvider messages={messages}>
-							<ThemeProvider attribute='class' defaultTheme={siteConfig.defaultNextTheme} enableSystem>
-								<Toaster position='bottom-right' />
-								<main className='max-w-7xl mx-auto flex flex-col items-center'>
-									<Header />
-									{children}
-									<Footer />
-								</main>
-							</ThemeProvider>
+							<Toaster position='bottom-right' />
+							<div
+								className='min-h-screen inset-0 -z-10 opacity-90 flex flex-col'
+								style={{
+									backgroundImage:
+										'linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02)), repeating-linear-gradient(90deg, transparent 0 119px, rgba(0,0,0,0.03) 119px 120px)'
+								}}
+							>
+								<div className='flex-1'>{children}</div>
+								<Footer brand={brand} />
+							</div>
 						</NextIntlClientProvider>
 						<TailwindIndicator />
 						{process.env.NODE_ENV === 'production' && <PlausibleAnalytics />}

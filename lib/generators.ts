@@ -2,7 +2,8 @@ import fs from 'node:fs'
 import { join } from 'node:path'
 import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, LOCALE_NAMES } from '@/i18n/routing'
-import type { BlogMetadata, BlogPost } from '@/types/blog'
+import type { BlogMetadata, BlogPost, ImageMeta } from '@/types/blog'
+import type { Category } from '@/types/config'
 import GithubSlugger from 'github-slugger'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
@@ -14,8 +15,11 @@ import { visit } from 'unist-util-visit'
 
 const BLOGS_BATCH_SIZE = 12
 
-export async function getBlogs(locale: string = DEFAULT_LOCALE): Promise<{ blogs: BlogPost[] }> {
-	const blogsDir = join(process.cwd(), 'content', locale)
+export async function getBlogs(
+	locale: string = DEFAULT_LOCALE,
+	category: Category = 'method'
+): Promise<{ blogs: BlogPost[] }> {
+	const blogsDir = join(process.cwd(), 'content', locale, category)
 
 	// 目录不存在，直接返回为空
 	if (!fs.existsSync(blogsDir)) {
@@ -44,10 +48,11 @@ export async function getBlogs(locale: string = DEFAULT_LOCALE): Promise<{ blogs
 					title: data.title,
 					description: data.description,
 					image: data.image || '',
-					slug: data.slug,
+					slug: `/${category}/${data.slug}`,
 					tags: data.tags,
 					date: data.date,
 					visible: data.visible || 'published',
+					category,
 					pin: data.pin || false,
 					content,
 					metadata: data,
@@ -77,32 +82,31 @@ export async function getBlogs(locale: string = DEFAULT_LOCALE): Promise<{ blogs
 }
 
 export async function generateBlogMetadata({
-	page = 'Home',
+	page = 'home',
 	title,
 	description,
-	images = [],
-	noIndex = false,
 	locale,
 	path,
+	images = [],
+	noIndex = false,
 	canonicalUrl
 }: BlogMetadata): Promise<Metadata> {
 	// 获取翻译器
-	const t = await getTranslations({ locale, namespace: 'Home' })
+	const t = await getTranslations({ locale, namespace: 'navs' })
 
 	// 获取页面特定的元数据翻译
 
-	const blogTitle = title || t('title')
-	const blogDescription = description || t('description')
+	const blogTitle = title || t('home.title')
+	const blogDescription = description || t('home.description')
 
 	// 构建完整标题
-	const finalTitle = page === 'Home' ? `${blogTitle} - ${t('tagLine')}` : `${blogTitle} | ${t('title')}`
+	const finalTitle = page === 'home' ? `${blogTitle} - ${blogDescription}` : `${blogTitle} | ${t('home.title')}`
 
 	// 构建图片URL
 	const imageUrls =
 		images?.length > 0
 			? images.map((img) => ({
 					url: img.startsWith('http') ? img : `${siteConfig.url}/${img}`,
-
 					alt: blogTitle
 				}))
 			: [{ url: `${siteConfig.url}/og.png`, alt: blogTitle }]
@@ -138,7 +142,7 @@ export async function generateBlogMetadata({
 			title: finalTitle,
 			description: blogDescription,
 			url: openGraphUrlPrefix,
-			siteName: t('title'),
+			siteName: `${t('home.title')}-${t('home.description')}`,
 			images: imageUrls
 		},
 		twitter: {
@@ -179,4 +183,28 @@ function extractHeadings(markdown: string) {
 	})
 
 	return headings
+}
+
+export async function getImages(locale: string = DEFAULT_LOCALE): Promise<{ images: ImageMeta[] }> {
+	const imagesFile = join(process.cwd(), 'content', locale, 'vision', 'images.json')
+
+	// 文件不存在，直接返回为空
+	if (!fs.existsSync(imagesFile)) {
+		return { images: [] }
+	}
+
+	try {
+		const fileContent = await fs.promises.readFile(imagesFile, 'utf-8')
+		const data = JSON.parse(fileContent) as { list: ImageMeta[] }
+
+		let images = data.list
+		// 根据时间倒序，但不能越过置顶逻辑
+		images = images.sort((a: ImageMeta, b: ImageMeta): number => {
+			return new Date(b.date).getTime() - new Date(a.date).getTime()
+		})
+		return { images }
+	} catch (e) {
+		console.error(e)
+		return { images: [] }
+	}
 }

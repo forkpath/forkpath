@@ -1,6 +1,6 @@
 import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing'
-import { getBlogs } from '@/lib/utils'
+import { getBlogs } from '@/lib/generators'
 import type { MetadataRoute } from 'next'
 
 const siteUrl = siteConfig.url

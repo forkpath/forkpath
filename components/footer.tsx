@@ -1,27 +1,32 @@
-import { IconBrandGithub, IconBrandInstagram, IconBrandTwitter } from '@tabler/icons-react'
+import { IconBrandGithub, IconBrandInstagram, IconBrandWechat, IconBrandX } from '@tabler/icons-react'
 import { Link } from 'next-view-transitions'
-import { Container } from './container'
 
-export function Footer() {
+export function Footer({ brand }: { brand: string }) {
 	return (
-		<Container className='w-full relative border-accent-100 dark:border-white/[0.1] overflow-hidden'>
-			<div className='border-t  max-w-7xl mx-auto text-sm text-neutral-500  justify-between items-start p-4'>
-				<div className='flex sm:flex-row flex-col justify-between items-center w-full'>
-					<p className='text-neutral-500 dark:text-neutral-400 mb-8 sm:mb-0'>&copy; Forkpath</p>
-					<div className='flex gap-4'>
-						<Link href='#'>
-							<IconBrandTwitter className='h-6 w-6 text-neutral-500 dark:text-neutral-300' />
-						</Link>
+		<div className='text-sm text-neutral-500 p-4'>
+			<div className='mx-auto max-w-7xl flex sm:flex-row flex-col-reverse justify-between items-center'>
+				<span>
+					© {new Date().getFullYear()} {brand}
+				</span>
+				<div className='flex gap-4 mb-8 sm:mb-0'>
+					<Link href='#'>
+						<IconBrandX strokeWidth={1} className='h-5 w-5' />
+					</Link>
 
-						<Link href='#'>
-							<IconBrandGithub className='h-6 w-6 text-neutral-500 dark:text-neutral-300' />
-						</Link>
-						<Link href='#'>
-							<IconBrandInstagram className='h-6 w-6 text-neutral-500 dark:text-neutral-300' />
-						</Link>
-					</div>
+					<Link href='#'>
+						<IconBrandWechat strokeWidth={1} className='h-5 w-5' />
+					</Link>
+
+					<Link href='#'>
+						<IconBrandGithub strokeWidth={1} className='h-5 w-5' />
+					</Link>
+
+					<Link href='#'>
+						<IconBrandInstagram strokeWidth={1} className='h-5 w-5' />
+					</Link>
 				</div>
+				<span className='hidden sm:block'>道 · 法 · 术 · 器 · 相</span>
 			</div>
-		</Container>
+		</div>
 	)
 }

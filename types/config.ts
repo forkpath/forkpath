@@ -3,10 +3,15 @@ export type AuthorConfig = {
 	url: string
 }
 
-export type ThemeColor = {
-	media: string
-	color: string
+export type Category = 'principle' | 'pattern' | 'method' | 'tool' | 'vision'
+
+export type NavItem = {
+	key: string
+	title: string
+	href: string
 }
+
+export type Layout = 'list' | 'grid'
 
 export type SiteConfig = {
 	name: string
@@ -21,8 +26,6 @@ export type SiteConfig = {
 		email: string
 	}
 	creator: string
-	themeColors?: string | ThemeColor[]
-	defaultNextTheme?: string
 	icons: {
 		icon: string
 		shortcut?: string
