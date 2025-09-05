@@ -9,7 +9,7 @@ export const Toc = ({ links }: { links: BlogToc }) => {
 	const [hovered, setHovered] = useState<number | null>(null)
 	const t = useTranslations()
 	return (
-		<aside className='sticky hidden max-w-sm h-max flex-col self-start px-5 md:flex rounded-3xl border border-neutral-200 bg-white/60 p-5'>
+		<aside className='sticky hidden max-w-sm h-max flex-col self-start px-5 lg:flex rounded-3xl border border-neutral-200 bg-white/60 p-5'>
 			<div className='text-xs tracking-widest uppercase text-neutral-500 mb-2'>{t('layout.toc')}</div>
 			{links.map((link, index) => (
 				<Link
