@@ -17,8 +17,19 @@ const BLOGS_BATCH_SIZE = 12
 
 export async function getBlogs(
 	locale: string = DEFAULT_LOCALE,
-	category: Category = 'method'
+	category: Category = 'all'
 ): Promise<{ blogs: BlogPost[] }> {
+	if (category === 'all') {
+		const categories: Category[] = ['principle', 'pattern', 'method', 'tool']
+		let allBlogs: BlogPost[] = []
+
+		for (const cat of categories) {
+			const { blogs } = await getBlogs(locale, cat)
+			allBlogs = allBlogs.concat(blogs)
+		}
+	}
+
+	// 根据时间倒序，但不能越过置顶逻辑
 	const blogsDir = join(process.cwd(), 'content', locale, category)
 
 	// 目录不存在，直接返回为空

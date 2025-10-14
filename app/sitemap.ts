@@ -9,7 +9,7 @@ type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'y
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	// 静态页面
-	const staticPages = ['', '/blog', '/about', '/project']
+	const staticPages = ['', '/principle', '/pattern', '/method', '/tool', 'vision']
 
 	// 生成多语言页面
 	const pages = LOCALES.flatMap((locale) => {
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		LOCALES.map(async (locale) => {
 			const { blogs } = await getBlogs(locale)
 			return blogs.map((blog) => ({
-				url: `${siteUrl}${locale === DEFAULT_LOCALE ? '' : `/${locale}`}/blog${blog.slug}`,
+				url: `${siteUrl}${locale === DEFAULT_LOCALE ? '' : `/${locale}`}${blog.slug}`,
 				lastModified: blog.metadata.updatedAt || blog.date,
 				changeFrequency: 'daily' as const,
 				priority: 0.7

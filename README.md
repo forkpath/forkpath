@@ -1,28 +1,4 @@
-## 构建流程
-* 基于最新版本的next.js创建项目
-```shell
-pnpm dlx create-next-app@latest
-```
-* 引入shadcn作为组件样式
-```shell
-pnpm dlx shadcn@latest init
-```
-* 安装lefthook作为git钩子
-```shell
-pnpm add --save-dev lefthook
-vim lefthook.yml
-```
-* 安装biomejs作为代码格式和lint工具
-```shell
-pnpm add --save-dev --save-exact @biomejs/biome
-pnpm biome init
-vim biome.json
-```
-* 安装commit-lint来检查提交信息格式
-```shell
-pnpm add --save-dev @commitlint/{config-conventional,cli}
-pnpm add --save-dev cz-customizable
-# 安装cz-customizable的配置文件
-vim commitlint.config.js
-vim .cz-config.js
-```
+<p align="center" style="line-height: 1">
+    <img src="https://readme-typing-svg.demolab.com?font=LXGW+WenKai+TC&duration=3000&pause=1000&color=979797&background=FFFFFF00&center=true&vCenter=true&width=600&height=32&lines=One+begets+two%2C++two+begets+three%2C+three+begets+everything;%E4%B8%80%E7%94%9F%E4%BA%8C%EF%BC%8C%E4%BA%8C%E7%94%9F%E4%B8%89%EF%BC%8C%E4%B8%89%E7%94%9F%E4%B8%87%E7%89%A9" alt="道" />
+    <h4 align="center">- Laozi（circa 570 BC to circa 470 BC）-</h4>
+</p>

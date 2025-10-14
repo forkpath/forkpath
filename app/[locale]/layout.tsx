@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import type React from 'react'
 import '@/app/globals.css'
 import { Footer } from '@/components/footer'
@@ -13,9 +12,25 @@ import { notFound } from 'next/navigation'
 import { StrictMode } from 'react'
 import { Toaster } from 'sonner'
 
-export const metadata: Metadata = {
-	title: '支线的数字花园',
-	description: '个人博客'
+type Params = { locale: string }
+
+type MetadataProps = {
+	params: Promise<Params>
+}
+
+export async function generateMetadata({ params }: MetadataProps) {
+	const { locale } = await params
+	const t = await getTranslations({ locale })
+	return {
+		title: `${t('navs.home.title')} | ${t('navs.home.description')}`,
+		description: t('home.subTitle'),
+		icons: {
+			icon: '/favicon.ico',
+			shortcut: '/icons/favicon-16x16.png',
+			apple: '/icons/apple-touch-icon.png'
+		},
+		manifest: '/site.webmanifest'
+	}
 }
 
 export default async function RootLayout({
@@ -23,9 +38,7 @@ export default async function RootLayout({
 	params
 }: Readonly<{
 	children: React.ReactNode
-	params: {
-		locale: string
-	}
+	params: Promise<Params>
 }>) {
 	const { locale } = await params
 	const t = await getTranslations()
@@ -43,7 +56,6 @@ export default async function RootLayout({
 		<StrictMode>
 			<ViewTransitions>
 				<html lang={locale || DEFAULT_LOCALE} suppressHydrationWarning>
-					<head />
 					<body className={cn('bg-neutral-50 text-neutral-800 antialiased font-misans')}>
 						<NextIntlClientProvider messages={messages}>
 							<Toaster position='bottom-right' />

@@ -3,7 +3,7 @@ export type AuthorConfig = {
 	url: string
 }
 
-export type Category = 'principle' | 'pattern' | 'method' | 'tool' | 'vision'
+export type Category = 'all' | 'principle' | 'pattern' | 'method' | 'tool'
 
 export type NavItem = {
 	key: string
