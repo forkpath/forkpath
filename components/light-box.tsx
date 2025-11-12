@@ -38,23 +38,20 @@ export const LightBox = ({
 				onClick={(e) => e.stopPropagation()}
 				onKeyDown={(e) => e.stopPropagation()}
 			>
-				<div className='rounded-2xl overflow-hidden bg-white'>
-					<div className='bg-black flex items-center justify-center'>
-						<img src={image.url} alt='' className='max-h-[70vh] w-full object-contain' />
+				<div className='rounded-xl overflow-hidden bg-white'>
+					<div className='bg-black flex'>
+						<div className='flex items-center justify-center shrink-0'>
+							<img src={image.url} alt='' className='max-h-[70vh] w-full object-contain' />
+						</div>
+						<div className='flex-1 p-8 text-white'>
+							<p>hello</p>
+						</div>
 					</div>
 					<div className='p-4 flex items-center gap-3 text-sm text-neutral-700'>
 						<span className='rounded-full border px-2 py-0.5 text-xs text-neutral-500'>
 							{position}/{total}
 						</span>
-						<span className='truncate flex-1'>
-							{(() => {
-								try {
-									return new URL(image.url).hostname
-								} catch {
-									return ''
-								}
-							})()} — {position}
-						</span>
+						<span className='truncate flex-1'>{image.title}</span>
 						<button
 							type='button'
 							onClick={onPrev}

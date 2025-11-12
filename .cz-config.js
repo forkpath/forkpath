@@ -12,7 +12,7 @@ module.exports = {
 		{ value: 'chore', name: 'chore:    🧹  其他杂项' },
 		{ value: 'revert', name: 'revert:   ⏪  回滚提交' }
 	],
-	scopes: [{ name: 'api' }, { name: 'site' }, { name: 'dashboard' }, { name: 'docker' }, { name: 'none' }],
+	scopes: [{ name: 'content' }, { name: 'site' }, { name: 'arch' }, { name: 'dependencies' }, { name: 'none' }],
 	allowCustomScopes: true,
 	allowBreakingChanges: ['feat', 'fix'],
 	subjectLimit: 100,
