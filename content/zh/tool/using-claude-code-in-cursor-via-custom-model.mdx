@@ -1,0 +1,46 @@
+---
+title: 在Cursor中通过自定义模型使用Claude-Code
+description: 'Explore advanced CSS techniques including CSS Grid, Flexbox, Custom Properties, and modern layout patterns that will take your web development skills to the next level.'
+image: '/images/nextjs.webp'
+slug: using-claude-code-in-cursor-via-custom-model
+tags: cursor,proxy,custom-model,debug,programming
+date: 2025-11-11
+visible: published
+pin: true
+---
+
+# 在Cursor中通过自定义模型使用Claude-Code
+
+## TL;DR：
+截至2025年12月3日，在2.x.x版本的Cursor不支持通过OpenRouter使用Claude或OpenAI的自定义模型，可以通过第三方代理的方式绕过此限制。
+
+## 问题描述
+自上次在`Cursor-武汉`的社区活动中分享了一些Cursor的使用技巧后，收到不少朋友的反馈，提到在Cursor中配置OpenRouter为接口地址，无法使用自定义的Claude或OpenAI的模型。
+在OpenRouter接口地址填写正确，Key配置正确，模型名称填写正确的情况下，调用时依然会遇到的类似这样的错误提示：
+
+```shell
+Request failed with status code 500: {"error":{"message":"Internal Server Error","code":500}}
+```
+
+![Cursor使用OpenRouter自定义模型报错](/images/using-claude-code-in-cursor-via-custom-model/error.png)
+
+## 问题定位
+错误代码尽管已经通过`500`状态码表征了是服务端错误，但我当时还是怀疑是不是我发出去的参数存在什么拼接错误，所以我使用了**Charles*进行抓包。
+由于在国内使用Cursor本身需要使用代理，因此我需要保证请求先通过Charles的代理。
+![代理方式](/images/using-claude-code-in-cursor-via-custom-model/proxy-setup.png)
+
+即使已经安装了Charles的根证书，但我发现Cursor发出的请求响应依然无法被Charles明文查看，猜测可能是Cursor使用了证书校验机制。
+这里可以通过禁用Cursor中 `Http: Proxy Strict SSL` 这个配置来关掉证书校验，从而让Charles可以解密请求响应内容。
+![禁用SSL严格模式](/images/using-claude-code-in-cursor-via-custom-model/disable-strict-ssl.png)
+
+可以看到Cursor发出的请求参数并没有错误，至此基本确认模型限制发生在Cursor在服务端。
+![Charles明文内容](/images/using-claude-code-in-cursor-via-custom-model/charles-proxy.png)
+
+## 解决方案
+确认是Cursor在服务端做了限制，我推测它可能是通过类似黑名单的方式进行了屏蔽，如果是这样，那么自建一个代理或者找个第三方代理，且尽可能在使用模型的时候，换个别名是不是就可以了？
+带着这个猜测，在网上找了个第三方代理，成功调用了Claude-Code模型。
+![成功调用Claude-Code模型](/images/using-claude-code-in-cursor-via-custom-model/success.png)
+
+## 观察与思考
+- 在抓包的时候，意外看到cursor使用sentry上报了不少用户使用数据，其中甚至包含机型配置信息等。尽管我能理解Cursor想要通过搜集这些数据来进行用户行为分析或错误跟踪，但依然生理不适。
+- 如果我是OpenRouter的产品经理，我会考虑给OpenRouter新增一个自定义模型名称映射的功能，让用户可以通过别名来调用自定义模型，从而避免被类似Cursor这样的客户端屏蔽。

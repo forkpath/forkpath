@@ -15,7 +15,6 @@ export type Layout = 'list' | 'grid'
 
 export type SiteConfig = {
 	name: string
-	tagLine: string
 	description: string
 	url: string
 	authors: AuthorConfig[]
@@ -24,6 +23,7 @@ export type SiteConfig = {
 		twitter: string
 		wechat: string
 		email: string
+		instagram: string
 	}
 	creator: string
 	icons: {
