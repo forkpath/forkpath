@@ -1,6 +1,6 @@
+import { getTranslations } from 'next-intl/server'
 import { VisionGallery } from '@/components/vision-gallery'
 import { getImages } from '@/lib/generators'
-import { getTranslations } from 'next-intl/server'
 
 type Params = Promise<{ locale: string }>
 

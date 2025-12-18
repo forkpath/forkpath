@@ -1,7 +1,7 @@
-import { truncate } from '@/lib/utils'
-import type { BlogPost } from '@/types/blog'
 import Image from 'next/image'
 import Link from 'next/link'
+import { truncate } from '@/lib/utils'
+import type { BlogPost } from '@/types/blog'
 
 export const BlogPin = ({ blog }: { blog: BlogPost | null }) => {
 	return (

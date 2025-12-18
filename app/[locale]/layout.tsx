@@ -1,16 +1,19 @@
 import type React from 'react'
+
 import '@/app/globals.css'
-import { Footer } from '@/components/footer'
-import PlausibleAnalytics from '@/components/tools/plausible'
-import { TailwindIndicator } from '@/components/tools/tailwind-indicator'
-import { DEFAULT_LOCALE, routing } from '@/i18n/routing'
-import { cn } from '@/lib/utils'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { ViewTransitions } from 'next-view-transitions'
-import { notFound } from 'next/navigation'
 import { StrictMode } from 'react'
 import { Toaster } from 'sonner'
+import { Footer } from '@/components/footer'
+import PlausibleAnalytics from '@/components/tools/plausible'
+import { TailwindIndicator } from '@/components/tools/tailwind-indicator'
+import { siteConfig } from '@/configs/site'
+import { DEFAULT_LOCALE, routing } from '@/i18n/routing'
+import { cn } from '@/lib/utils'
 
 type Params = { locale: string }
 
@@ -18,18 +21,44 @@ type MetadataProps = {
 	params: Promise<Params>
 }
 
-export async function generateMetadata({ params }: MetadataProps) {
+export async function generateMetadata({ params }: MetadataProps): Promise<Metadata> {
 	const { locale } = await params
 	const t = await getTranslations({ locale })
+
+	const title = `${t('navs.home.title')} | ${t('navs.home.description')}`
+	const description = t('home.subTitle')
+	const siteName = `${t('navs.home.title')} - ${t('navs.home.description')}`
+	const url = locale === DEFAULT_LOCALE ? siteConfig.url : `${siteConfig.url}/${locale}`
+	const ogImageUrl = `${siteConfig.url}/api/og?type=home&locale=${encodeURIComponent(locale)}`
+
 	return {
-		title: `${t('navs.home.title')} | ${t('navs.home.description')}`,
-		description: t('home.subTitle'),
+		title,
+		description,
+		authors: siteConfig.authors,
+		creator: siteConfig.creator,
+		metadataBase: new URL(siteConfig.url),
 		icons: {
 			icon: '/favicon.ico',
 			shortcut: '/icons/favicon-16x16.png',
 			apple: '/icons/apple-touch-icon.png'
 		},
-		manifest: '/site.webmanifest'
+		manifest: '/site.webmanifest',
+		openGraph: {
+			locale,
+			type: 'website',
+			title,
+			description,
+			url,
+			siteName,
+			images: [{ url: ogImageUrl, alt: title }]
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title,
+			description,
+			images: [ogImageUrl],
+			creator: siteConfig.creator
+		}
 	}
 }
 

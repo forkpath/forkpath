@@ -1,8 +1,9 @@
 'use client'
-import { usePathname, useRouter } from '@/i18n/routing'
-import { useLocale } from 'next-intl'
 import { useParams } from 'next/navigation'
+
+import { useLocale } from 'next-intl'
 import { startTransition } from 'react'
+import { usePathname, useRouter } from '@/i18n/routing'
 
 export const LocaleSwitch = () => {
 	const locale = useLocale()

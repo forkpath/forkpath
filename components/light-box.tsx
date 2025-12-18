@@ -1,5 +1,5 @@
-import type { ImageMeta } from '@/types/blog'
 import { useTranslations } from 'next-intl'
+import type { ImageMeta } from '@/types/blog'
 
 export const LightBox = ({
 	images,
@@ -33,6 +33,7 @@ export const LightBox = ({
 				tabIndex={0}
 				aria-label='Close lightbox'
 			/>
+			{/** biome-ignore lint/a11y/noStaticElementInteractions: <explanation> */}
 			<div
 				className='relative max-w-5xl w-full z-10'
 				onClick={(e) => e.stopPropagation()}

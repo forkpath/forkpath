@@ -1,8 +1,9 @@
 'use client'
-import type { Locale } from '@/i18n/routing'
-import { useTranslations } from 'next-intl'
+
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
+import type { Locale } from '@/i18n/routing'
 
 export const Comments = ({ repo, locale }: { repo: string; locale: Locale }) => {
 	const t = useTranslations()

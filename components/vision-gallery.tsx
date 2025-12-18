@@ -1,9 +1,9 @@
 'use client'
+import { useScroll } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { LightBox } from '@/components/light-box'
 import { ParallaxFigure } from '@/components/parallax-figure'
 import type { ImageMeta } from '@/types/blog'
-import { useScroll } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
 type VisionGalleryProps = {
 	images: ImageMeta[]

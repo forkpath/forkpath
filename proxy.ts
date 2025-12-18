@@ -7,9 +7,8 @@
     locale 参数被设置为检测到的语言代码
     这是 next-intl 的标准行为，用于实现无缝的国际化用户体验。
  */
-import { routing } from '@/i18n/routing'
-
 import createMiddleware from 'next-intl/middleware'
+import { routing } from '@/i18n/routing'
 
 export default createMiddleware(routing)
 

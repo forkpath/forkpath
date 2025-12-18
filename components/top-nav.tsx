@@ -1,9 +1,9 @@
 'use client'
-import { LocaleSwitch } from '@/components/locale-switch'
-import type { NavItem } from '@/types/config'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { LocaleSwitch } from '@/components/locale-switch'
+import type { NavItem } from '@/types/config'
 export const TopNav = ({ brand, navs }: { brand: string; navs: NavItem[] }) => {
 	return (
 		<div className='sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60'>

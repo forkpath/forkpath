@@ -1,7 +1,7 @@
+import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/configs/site'
 import { DEFAULT_LOCALE, LOCALES } from '@/i18n/routing'
 import { getBlogs } from '@/lib/generators'
-import type { MetadataRoute } from 'next'
 
 const siteUrl = siteConfig.url
 
@@ -9,7 +9,7 @@ type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'y
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	// 静态页面
-	const staticPages = ['', '/principle', '/pattern', '/method', '/tool', 'vision']
+	const staticPages = ['', '/principle', '/pattern', '/method', '/tool', '/vision']
 
 	// 生成多语言页面
 	const pages = LOCALES.flatMap((locale) => {

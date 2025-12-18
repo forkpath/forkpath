@@ -1,4 +1,3 @@
-'use client'
 import { type MotionValue, motion, useTransform } from 'framer-motion'
 
 export const ParallaxFigure = ({

@@ -1,5 +1,5 @@
-import { siteConfig } from '@/configs/site'
 import type { MetadataRoute } from 'next'
+import { siteConfig } from '@/configs/site'
 
 const siteUrl = siteConfig.url
 

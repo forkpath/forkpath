@@ -1,14 +1,14 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import { MDXRemote } from 'next-mdx-remote-client/rsc'
+
+import { Comments } from '@/components/comments'
 import MDXComponents from '@/components/mdx/MDXComponents'
 import { Toc } from '@/components/toc'
 import type { Locale } from '@/i18n/routing'
 import { generateBlogMetadata, getBlogs } from '@/lib/generators'
-
-import { Comments } from '@/components/comments'
 import type { BlogPost } from '@/types/blog'
-import type { Metadata } from 'next'
-import { MDXRemote } from 'next-mdx-remote-client/rsc'
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
 
 type Params = Promise<{
 	locale: string

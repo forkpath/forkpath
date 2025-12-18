@@ -3,7 +3,7 @@ import type { SiteConfig } from '@/types/config'
 export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://forkpath.com'
 
 const TWITTER_URL = 'https://x.com/_forkpath_'
-const WECHAT_URL = 'https://wechat.com/forkapth_avatar'
+const WECHAT_URL = '/qrcode.jpg'
 const EMAIL_URL = 'mailto:forkpath@gmail.com'
 const GITHUB_URL = 'https://github.com/forkpath'
 const INSTAGRAM_URL = 'https://instagram.com/forkpath'

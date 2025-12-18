@@ -1,9 +1,6 @@
 import fs from 'node:fs'
+
 import { join } from 'node:path'
-import { siteConfig } from '@/configs/site'
-import { DEFAULT_LOCALE, LOCALE_NAMES } from '@/i18n/routing'
-import type { BlogMetadata, BlogPost, ImageMeta } from '@/types/blog'
-import type { Category } from '@/types/config'
 import GithubSlugger from 'github-slugger'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
@@ -12,6 +9,10 @@ import remarkMdx from 'remark-mdx'
 import remarkParse from 'remark-parse'
 import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
+import { siteConfig } from '@/configs/site'
+import { DEFAULT_LOCALE, LOCALE_NAMES } from '@/i18n/routing'
+import type { BlogMetadata, BlogPost, ImageMeta } from '@/types/blog'
+import type { Category } from '@/types/config'
 
 const BLOGS_BATCH_SIZE = 12
 
@@ -114,13 +115,38 @@ export async function generateBlogMetadata({
 	const finalTitle = page === 'home' ? `${blogTitle} - ${blogDescription}` : `${blogTitle} | ${t('home.title')}`
 
 	// 构建图片URL
-	const imageUrls =
-		images?.length > 0
-			? images.map((img) => ({
-					url: img.startsWith('http') ? img : `${siteConfig.url}/${img}`,
-					alt: blogTitle
-				}))
-			: [{ url: `${siteConfig.url}/og.png`, alt: blogTitle }]
+	// 如果传入了图片，使用传入的图片；否则使用 API 路由生成动态 OG 图片
+	let imageUrls: Array<{ url: string; alt: string }> | undefined
+
+	if (images?.length > 0) {
+		// 使用传入的图片
+		imageUrls = images.map((img) => ({
+			url: img.startsWith('http') ? img : `${siteConfig.url}/${img}`,
+			alt: blogTitle
+		}))
+	} else {
+		// 使用 API 路由生成动态 OG 图片
+		let ogImageUrl = ''
+
+		if (page === 'home') {
+			// 首页
+			ogImageUrl = `${siteConfig.url}/api/og?type=home&locale=${locale}`
+		} else if (path) {
+			// 从 path 中提取分类和 slug
+			const pathParts = path.split('/').filter(Boolean)
+			if (pathParts.length === 1) {
+				// 分类列表页：/method, /principle 等
+				ogImageUrl = `${siteConfig.url}/api/og?type=category&category=${encodeURIComponent(pathParts[0])}&locale=${encodeURIComponent(locale)}`
+			} else if (pathParts.length === 2) {
+				// 博客详情页：/method/slug, /principle/slug 等
+				ogImageUrl = `${siteConfig.url}/api/og?type=blog&category=${encodeURIComponent(pathParts[0])}&slug=${encodeURIComponent(pathParts[1])}&locale=${encodeURIComponent(locale)}`
+			}
+		}
+
+		if (ogImageUrl) {
+			imageUrls = [{ url: ogImageUrl, alt: blogTitle }]
+		}
+	}
 
 	// Open Graph Site
 	const openGraphUrlPrefix = `${locale === DEFAULT_LOCALE ? '' : locale}${path}` || siteConfig.url
@@ -154,14 +180,14 @@ export async function generateBlogMetadata({
 			description: blogDescription,
 			url: openGraphUrlPrefix,
 			siteName: `${t('home.title')}-${t('home.description')}`,
-			images: imageUrls
+			...(imageUrls && { images: imageUrls })
 		},
 		twitter: {
 			card: 'summary_large_image',
 			title: finalTitle,
 			description: blogDescription,
 			site: `${siteConfig.url}/${openGraphUrlPrefix}`,
-			images: imageUrls,
+			...(imageUrls && { images: imageUrls }),
 			creator: siteConfig.creator
 		},
 		robots: {

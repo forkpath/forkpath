@@ -1,6 +1,10 @@
-import { siteConfig } from '@/configs/site'
+'use client'
+
 import { IconBrandGithub, IconBrandInstagram, IconBrandWechat, IconBrandX } from '@tabler/icons-react'
+import Image from 'next/image'
 import { Link } from 'next-view-transitions'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { siteConfig } from '@/configs/site'
 
 export function Footer({ brand }: { brand: string }) {
 	const { socialLinks } = siteConfig
@@ -11,19 +15,24 @@ export function Footer({ brand }: { brand: string }) {
 					© {new Date().getFullYear()} {brand}
 				</span>
 				<div className='flex gap-4 mb-8 sm:mb-0'>
-					<Link href={socialLinks.twitter} passHref>
+					<Link href={socialLinks.twitter}>
 						<IconBrandX strokeWidth={1} className='h-5 w-5' />
 					</Link>
 
-					<Link href={socialLinks.wechat} passHref>
-						<IconBrandWechat strokeWidth={1} className='h-5 w-5' />
-					</Link>
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<IconBrandWechat strokeWidth={1} className='h-5 w-5' />
+						</TooltipTrigger>
+						<TooltipContent side='top'>
+							<Image src={socialLinks.wechat} alt='微信二维码' width={120} height={120} className='rounded' />
+						</TooltipContent>
+					</Tooltip>
 
-					<Link href={socialLinks.github} passHref>
+					<Link href={socialLinks.github}>
 						<IconBrandGithub strokeWidth={1} className='h-5 w-5' />
 					</Link>
 
-					<Link href={socialLinks.instagram} passHref>
+					<Link href={socialLinks.instagram}>
 						<IconBrandInstagram strokeWidth={1} className='h-5 w-5' />
 					</Link>
 				</div>

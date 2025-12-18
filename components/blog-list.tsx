@@ -1,15 +1,15 @@
 'use client'
+import { motion } from 'framer-motion'
+import FuzzySearch from 'fuzzy-search'
+import { Search } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 import type { Locale } from '@/i18n/routing'
 import { formatDate, truncate } from '@/lib/utils'
 import type { BlogPost } from '@/types/blog'
 import type { Layout } from '@/types/config'
-import { motion } from 'framer-motion'
-import FuzzySearch from 'fuzzy-search'
-import { Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 export const BlogList = ({
 	locale,

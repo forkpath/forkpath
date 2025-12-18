@@ -1,8 +1,8 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { BlogList } from '@/components/blog-list'
 import type { Locale } from '@/i18n/routing'
 import { generateBlogMetadata, getBlogs } from '@/lib/generators'
-import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
 
 type Params = { locale: string }
 

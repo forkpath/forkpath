@@ -1,7 +1,7 @@
-import { TopNav } from '@/components/top-nav'
-import type { NavItem } from '@/types/config'
 import { getTranslations } from 'next-intl/server'
 import type React from 'react'
+import { TopNav } from '@/components/top-nav'
+import type { NavItem } from '@/types/config'
 
 export default async function InternalLayout({
 	children

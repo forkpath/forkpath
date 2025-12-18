@@ -1,8 +1,8 @@
+import GithubSlugger from 'github-slugger'
+import React, { type ReactNode } from 'react'
 import { Aside } from '@/components/mdx/Aside'
 import { Callout } from '@/components/mdx/Callout'
 import { MdxCard } from '@/components/mdx/MdxCard'
-import GithubSlugger from 'github-slugger'
-import React, { type ReactNode } from 'react'
 
 interface HeadingProps {
 	level: 1 | 2 | 3 | 4 | 5 | 6

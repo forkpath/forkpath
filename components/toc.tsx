@@ -1,9 +1,10 @@
 'use client'
-import type { BlogToc } from '@/types/blog'
+
 import { motion } from 'framer-motion'
-import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
+import type { BlogToc } from '@/types/blog'
 
 export const Toc = ({ links }: { links: BlogToc }) => {
 	const [hovered, setHovered] = useState<number | null>(null)
